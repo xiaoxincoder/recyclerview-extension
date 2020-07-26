@@ -21,20 +21,16 @@ public class CommonViewHolder<T> extends RecyclerView.ViewHolder {
     private CommonAdapter<T> mAdapter;
     private SparseArray<View> cacheViewList;
     private OnClickCallback<T> onClickCallback;
-    private OnItemClickListener<T> onItemClickListener;
     private OnChildClickCallback<T> onChildClickListener;
-    private OnItemChildViewClickListener<T> onItemChildViewClickListener;
 
     public CommonViewHolder(Context context, @NonNull View itemView, CommonAdapter<T> adapter) {
         super(itemView);
         this.mAdapter = adapter;
         this.tempContext = context;
         cacheViewList = new SparseArray<>();
-        bindItemViewClickEvent();
-        bindItemChildViewClickEvent(itemView);
     }
 
-    private void bindItemViewClickEvent() {
+    private void bindItemViewClickEvent(OnItemClickListener<T> onItemClickListener) {
         if (onItemClickListener != null) {
             if (onClickCallback == null) {
                 onClickCallback = new OnClickCallback<T>(mAdapter, onItemClickListener);
@@ -44,7 +40,7 @@ public class CommonViewHolder<T> extends RecyclerView.ViewHolder {
         }
     }
 
-    private void bindItemChildViewClickEvent(View itemView) {
+    private void bindItemChildViewClickEvent(View itemView, OnItemChildViewClickListener<T> onItemChildViewClickListener) {
         if (onItemChildViewClickListener != null) {
             if (onChildClickListener == null) {
                 onChildClickListener = new OnChildClickCallback<>(mAdapter, onItemChildViewClickListener);
@@ -63,11 +59,11 @@ public class CommonViewHolder<T> extends RecyclerView.ViewHolder {
     }
 
     public void setOnItemClickListener(OnItemClickListener<T> onItemClickListener) {
-        this.onItemClickListener = onItemClickListener;
+        bindItemViewClickEvent(onItemClickListener);
     }
 
     public void setOnItemChildViewClickListener(OnItemChildViewClickListener<T> onItemChildViewClickListener) {
-        this.onItemChildViewClickListener = onItemChildViewClickListener;
+        bindItemChildViewClickEvent(this.itemView, onItemChildViewClickListener);
     }
 
     public <V extends View> V getView(int id) {
@@ -146,6 +142,10 @@ public class CommonViewHolder<T> extends RecyclerView.ViewHolder {
         View view = getView(viewId);
         view.setVisibility(View.INVISIBLE);
         return CommonViewHolder.this;
+    }
+
+    public void onBindView(int position, T itemData) {
+
     }
 
     public static class OnClickCallback<T> implements View.OnClickListener {
