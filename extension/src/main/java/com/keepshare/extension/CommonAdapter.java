@@ -1,6 +1,7 @@
 package com.keepshare.extension;
 
 import android.content.Context;
+import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
@@ -8,7 +9,7 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.keepshare.extension.listener.OnItemClickListener;
-import com.keepshare.extension.listener.OnItemViewClickListener;
+import com.keepshare.extension.listener.OnItemChildViewClickListener;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -19,7 +20,7 @@ public abstract class CommonAdapter<T> extends RecyclerView.Adapter<CommonViewHo
     private List<T> dataList;
     private int limitCount = -1;
     private OnItemClickListener<T> onItemClickListener;
-    private OnItemViewClickListener<T> onItemViewClickListener;
+    private OnItemChildViewClickListener<T> onItemChildViewClickListener;
 
     public CommonAdapter(Context context) {
         this.context = context;
@@ -96,15 +97,28 @@ public abstract class CommonAdapter<T> extends RecyclerView.Adapter<CommonViewHo
         this.limitCount = limitCount;
     }
 
+    public void setOnItemClickListener(OnItemClickListener<T> onItemClickListener) {
+        this.onItemClickListener = onItemClickListener;
+    }
+
+    public void setOnItemChildViewClickListener(OnItemChildViewClickListener<T> onItemChildViewClickListener) {
+        this.onItemChildViewClickListener = onItemChildViewClickListener;
+    }
+
     @NonNull
     @Override
     public CommonViewHolder<T> onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        return null;
+        CommonViewHolder<T> viewHolder = new CommonViewHolder<>(context, LayoutInflater.from(context)
+                .inflate(bindItemView(viewType), parent, false), this);
+        viewHolder.setOnItemClickListener(onItemClickListener);
+        viewHolder.setOnItemChildViewClickListener(onItemChildViewClickListener);
+        return viewHolder;
     }
 
     @Override
     public void onBindViewHolder(@NonNull CommonViewHolder<T> holder, int position) {
-
+        final T itemData = getItemData(position);
+        onBindView(holder, itemData, position);
     }
 
     @Override
@@ -117,8 +131,7 @@ public abstract class CommonAdapter<T> extends RecyclerView.Adapter<CommonViewHo
         }
     }
 
-
-    public abstract void onBindView(CommonViewHolder holder, T itemData, int position);
+    public abstract void onBindView(CommonViewHolder<T> holder, T itemData, int position);
 
     public abstract int bindItemView(int viewType);
 

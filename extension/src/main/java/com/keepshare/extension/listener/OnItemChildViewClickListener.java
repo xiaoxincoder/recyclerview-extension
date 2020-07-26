@@ -1,6 +1,6 @@
 package com.keepshare.extension.listener;
 
-public interface OnItemViewClickListener<T> {
+public interface OnItemChildViewClickListener<T> {
 
     void onItemClick(int viewId, int position, T itemData);
 }
