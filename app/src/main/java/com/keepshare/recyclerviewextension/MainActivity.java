@@ -54,7 +54,14 @@ public class MainActivity extends AppCompatActivity {
         mAdapter.setOnItemChildViewClickListener(new OnItemChildViewClickListener<String>() {
             @Override
             public void onItemClick(int viewId, int position, String itemData) {
-                Toast.makeText(MainActivity.this, "child 位置:" + position + "+数据:" + itemData, Toast.LENGTH_SHORT).show();
+                switch (viewId) {
+                    case R.id.item_text_one:
+                        Toast.makeText(MainActivity.this, "child 左侧 位置:" + position + "+数据:" + itemData, Toast.LENGTH_SHORT).show();
+                        break;
+                    case R.id.item_text_two:
+                        Toast.makeText(MainActivity.this, "child 右侧 位置:" + position + "+数据:" + itemData, Toast.LENGTH_SHORT).show();
+                        break;
+                }
             }
         });
 

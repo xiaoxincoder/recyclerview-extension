@@ -1,3 +1,4 @@
-include ':extension'
+include ':intercept-touch'
+include ':common-adapter'
 include ':app'
 rootProject.name = "RecyclerViewExtension"

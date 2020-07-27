@@ -13,7 +13,12 @@ import com.keepshare.extension.listener.OnItemChildViewClickListener;
 
 import java.util.ArrayList;
 import java.util.List;
-
+/**
+ * @Author: xiaoxin
+ * @CreateDate: 2020-02-23
+ * @Copyright: keepshare, All rights reserved
+ * @Description:
+ */
 public abstract class CommonAdapter<T> extends RecyclerView.Adapter<CommonViewHolder<T>> {
 
     private Context context;
