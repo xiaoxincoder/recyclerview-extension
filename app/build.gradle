@@ -31,6 +31,9 @@ dependencies {
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.2.0'
     implementation 'androidx.recyclerview:recyclerview:1.1.0'
 
-    implementation project(':common-adapter')
+//    implementation project(':common-adapter')
+    
+
+    implementation 'com.keepshare.extension:common-adapter:0.0.2'
 
 }

@@ -21,11 +21,11 @@ import java.util.List;
  */
 public abstract class CommonAdapter<T> extends RecyclerView.Adapter<CommonViewHolder<T>> {
 
-    private Context context;
-    private List<T> dataList;
-    private int limitCount = -1;
-    private OnItemClickListener<T> onItemClickListener;
-    private OnItemChildViewClickListener<T> onItemChildViewClickListener;
+    protected Context context;
+    protected List<T> dataList;
+    protected int limitCount = -1;
+    protected OnItemClickListener<T> onItemClickListener;
+    protected OnItemChildViewClickListener<T> onItemChildViewClickListener;
 
     public CommonAdapter(Context context) {
         this.context = context;

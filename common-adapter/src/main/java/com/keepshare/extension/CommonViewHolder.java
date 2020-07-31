@@ -17,11 +17,11 @@ import com.keepshare.extension.listener.OnItemChildViewClickListener;
 
 public class CommonViewHolder<T> extends RecyclerView.ViewHolder {
 
-    private Context tempContext;
-    private CommonAdapter<T> mAdapter;
-    private SparseArray<View> cacheViewList;
-    private OnClickCallback<T> onClickCallback;
-    private OnChildClickCallback<T> onChildClickListener;
+    protected Context tempContext;
+    protected CommonAdapter<T> mAdapter;
+    protected SparseArray<View> cacheViewList;
+    protected OnClickCallback<T> onClickCallback;
+    protected OnChildClickCallback<T> onChildClickListener;
 
     public CommonViewHolder(Context context, @NonNull View itemView, CommonAdapter<T> adapter) {
         super(itemView);
