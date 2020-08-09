@@ -32,8 +32,8 @@ dependencies {
     implementation 'androidx.recyclerview:recyclerview:1.1.0'
 
 //    implementation project(':common-adapter')
-    
 
-    implementation 'com.keepshare.extension:common-adapter:0.0.2'
+
+    implementation 'com.keepshare.extension:common-adapter:0.0.3'
 
 }

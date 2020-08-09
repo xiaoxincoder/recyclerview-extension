@@ -167,7 +167,8 @@ public class CommonViewHolder<T> extends RecyclerView.ViewHolder {
         public void onClick(View v) {
             if (onItemClickListener != null && mAdapter != null) {
                 final int position = viewHolder.getAdapterPosition();
-                onItemClickListener.onItemClick(position, mAdapter.getItemData(position));
+                onItemClickListener.onItemClick(viewHolder,v,
+                        mAdapter,position, mAdapter.getItemData(position));
             }
         }
     }
@@ -192,7 +193,7 @@ public class CommonViewHolder<T> extends RecyclerView.ViewHolder {
         public void onClick(View v) {
             if (mAdapter != null && viewHolder != null && onItemClickListener != null) {
                 final int position = viewHolder.getAdapterPosition();
-                onItemClickListener.onItemClick(v.getId(),
+                onItemClickListener.onItemClick(viewHolder, mAdapter, v,
                         position, mAdapter.getItemData(position));
             }
         }
