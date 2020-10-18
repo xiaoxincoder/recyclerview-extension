@@ -27,8 +27,23 @@ public abstract class CommonAdapter<T> extends RecyclerView.Adapter<CommonViewHo
     protected OnItemClickListener<T> onItemClickListener;
     protected OnItemChildViewClickListener<T> onItemChildViewClickListener;
 
+    private CommonAdapterDataObserver dataObserver;
+
     public CommonAdapter(Context context) {
         this.context = context;
+        dataObserver = new CommonAdapterDataObserver();
+    }
+
+    public void setEmptyView(View emptyView, int extraViewNum) {
+        dataObserver.setEmptyView(emptyView, extraViewNum);
+    }
+
+    public void setExtraViewNum(int extraViewNum) {
+        dataObserver.setExtraViewNum(extraViewNum);
+    }
+
+    public void setStartCheck(boolean startCheck) {
+        dataObserver.setStartCheck(startCheck);
     }
 
     public void setDataList(List<T> dataList) {
@@ -73,9 +88,22 @@ public abstract class CommonAdapter<T> extends RecyclerView.Adapter<CommonViewHo
         notifyItemRemoved(index);
     }
 
+    @Override
+    public void onAttachedToRecyclerView(@NonNull RecyclerView recyclerView) {
+        super.onAttachedToRecyclerView(recyclerView);
+        dataObserver.attachToRecyclerView(recyclerView);
+        registerAdapterDataObserver(dataObserver);
+    }
+
+    @Override
+    public void onDetachedFromRecyclerView(@NonNull RecyclerView recyclerView) {
+        super.onDetachedFromRecyclerView(recyclerView);
+        unregisterAdapterDataObserver(dataObserver);
+    }
+
     public void removeItemData(int position) {
         initListIfNeed();
-        if (this.dataList.size() >= position) return;
+        if (this.dataList.size() <= position) return;
         this.dataList.remove(position);
         notifyItemRemoved(position);
     }
